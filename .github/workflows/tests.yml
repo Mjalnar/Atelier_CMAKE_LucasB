@@ -111,11 +111,13 @@ jobs:
           cmake ..
           make
 
-      - name: Run test "sqrt"
+      - name: Run test "sqrt" and capture report
         run: |
           cd build
           set -e
           echo "== Test sqrt 5 ==" > report.txt
+          # Note: On utilise 'sqrt' sqrt c'est l'argument demandé dans l'exercice, 
+          # même si votre fonction C interne s'appelle _sqrt.
           ./src/calculator sqrt 5 | tee -a report.txt
           echo "Exit code: $?" >> report.txt
 
@@ -126,13 +128,13 @@ jobs:
           path: build/report.txt      
           retention-days: 14          
 
-      - name: Job summary (facultatif mais pratique)
+      - name: Job summary
         run: |
           echo "### Résultat du test *sqrt*" >> $GITHUB_STEP_SUMMARY
           echo '' >> $GITHUB_STEP_SUMMARY
-          echo '' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
           cat build/report.txt >> $GITHUB_STEP_SUMMARY
-          echo '' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
 
   Deployment:
     runs-on: ubuntu-latest
