@@ -75,7 +75,7 @@ jobs:
           make
           ./src/calculator div 10 5
 
-  Test_Car:
+  Test_Sqrt:
     runs-on: ubuntu-latest
     needs: Compilation
     steps:
